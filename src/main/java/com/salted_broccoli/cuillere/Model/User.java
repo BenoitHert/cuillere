@@ -10,8 +10,7 @@ public class User {
 
     @Id
 
-    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
-    @SequenceGenerator(name = "USER_SEQ", sequenceName = "USER_SEQ")
+    @GeneratedValue( strategy = GenerationType.AUTO)
     private Integer id;
     private String firstName;
     private String lastName;
