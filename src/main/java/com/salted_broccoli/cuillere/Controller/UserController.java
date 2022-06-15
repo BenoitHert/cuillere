@@ -1,4 +1,4 @@
-package com.salted_broccoli.cuillere.Controler;
+package com.salted_broccoli.cuillere.Controller;
 
 import com.salted_broccoli.cuillere.Model.User;
 import com.salted_broccoli.cuillere.Service.UserService;

@@ -16,7 +16,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User registration(final RegistrationForm form){
+    public User registration(RegistrationForm form){
         User user = new User();
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
@@ -26,8 +26,10 @@ public class UserService {
         }
 
     public User findUser(){
-        org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Spring Security-side identifier; tied to the user's session => user's email
+        String connectedUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return userRepository.findUserByEmail(springUser.getUsername()).get();
+        //Fetch according to the email
+        return userRepository.findUserByEmail(connectedUserEmail);
     }
 }
