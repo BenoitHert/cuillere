@@ -25,15 +25,21 @@ public class UserController {
         userService.registration(form);
         return new ModelAndView("login", "loginForm", new LoginForm());
     }
-    @GetMapping("/")
+    @GetMapping("")
     public ModelAndView home(){
         User user = userService.findUser();
         return new ModelAndView("index", "user", user);
     }
 
 
-    @RequestMapping(value = "calendar", method = RequestMethod.GET)
+    @GetMapping("calendar")
     public ModelAndView calendar(){
         return new ModelAndView("calendar");
     }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+    }
+
 }

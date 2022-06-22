@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service("User Service")
 public class UserService {
 
@@ -31,5 +33,10 @@ public class UserService {
 
         //Fetch according to the email
         return userRepository.findUserByEmail(connectedUserEmail);
+    }
+
+    public void deleteUser(Long id){
+        User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
+        userRepository.delete(user);
     }
 }
