@@ -11,6 +11,27 @@
 <div>
   <h1>Todos</h1>
 
+  <table>
+    <tr>
+      <th>To do</th>
+      <th>Done</th>
+    </tr>
+    <tr th:each="todo :${todoItems}">
+      <td th:text="${todo.title}"></td>
+      <td th:if="${todo.done}"><a th:href="@{/todoDone/{id}(id=${todo.Id})}"><input type="checkbox" checked></a></td>
+      <td th:unless="${todo.done}"><a th:href="@{/todoNotDone/{id}(id=${todo.Id})}"><input type="checkbox"></a></td>
+    </tr>
+
+  </table>
+
+  <h1>Add Something to do</h1>
+  <form th:action="@{/addItem}" th:object="${itemForm}" method="post" class="mx-1 mx-md-4">
+    <input type="text" id="title" th:field="*{title}" class="form-control" required >
+    <label  class="form-label" for="title">To do :</label>
+    <button type="submit" class="btn btn-success btn-block btn-lg text-body col-xs-4 gradient-custom-4"> Add</button>
+  </form>
+
+
 </div>
 </body>
 </html>

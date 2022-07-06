@@ -19,12 +19,21 @@ public class UserService {
     UserRepository userRepository;
 
     public User registration(RegistrationForm form){
-        User user = new User();
-        user.setFirstName(form.getFirstName());
-        user.setLastName(form.getLastName());
-        user.setEmail(form.getEmail());
-        user.setPassword(passwordEncoder.encode(form.getPassword()));
-        return userRepository.save(user);
+
+        if(form.getPassword().equals(form.getConfirmPassword())) {
+
+//            if(userRepository.findUserByEmail(form.getEmail()).equals(null)){
+
+                User user = new User();
+                user.setFirstName(form.getFirstName());
+                user.setLastName(form.getLastName());
+                user.setEmail(form.getEmail());
+                user.setPassword(passwordEncoder.encode(form.getPassword()));
+                return userRepository.save(user);
+//            }
+//            else {throw new ArithmeticException("Cette adresse mail est déjà utilisée");}
+        }
+            else{throw new ArithmeticException("Veuillez confirmer le même mot de passe");}
         }
 
     public User findUser(){

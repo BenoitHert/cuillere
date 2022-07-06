@@ -6,6 +6,7 @@ import com.salted_broccoli.cuillere.Service.form.LoginForm;
 import com.salted_broccoli.cuillere.Service.form.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,8 +22,12 @@ public class UserController {
     }
 
     @PostMapping("registration")
-    public ModelAndView registerSubmit(@ModelAttribute("registrationForm") RegistrationForm form) {
-        userService.registration(form);
+    public ModelAndView registerSubmit(@ModelAttribute("registrationForm") RegistrationForm form, Model model) {
+        try{userService.registration(form);}
+        catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return new ModelAndView("register");
+        }
         return new ModelAndView("login", "loginForm", new LoginForm());
     }
     @GetMapping("")
@@ -37,9 +42,9 @@ public class UserController {
         return new ModelAndView("calendar");
     }
 
-    @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable Long id){
-        userService.deleteUser(id);
-    }
+//    @DeleteMapping("/{userId}")
+//    public void deleteUser(@PathVariable Long id){
+//        userService.deleteUser(id);
+//    }
 
 }
