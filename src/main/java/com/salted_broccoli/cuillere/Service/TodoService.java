@@ -1,6 +1,6 @@
 package com.salted_broccoli.cuillere.Service;
 
-import com.salted_broccoli.cuillere.Model.TodoItem;
+import com.salted_broccoli.cuillere.Model.Todolist.TodoItem;
 import com.salted_broccoli.cuillere.Model.User;
 import com.salted_broccoli.cuillere.Repository.TodoRepository;
 import com.salted_broccoli.cuillere.Repository.UserRepository;
@@ -27,7 +27,7 @@ public class TodoService {
         TodoItem todoItem = new TodoItem();
         todoItem.setTitle(form.getTitle());
         todoItem.setDone(false);
-        user.getTodoItems().add(todoItem);
+        user.getTodolist().add(todoItem);
         return todoRepository.save(todoItem);
     }
 
@@ -41,6 +41,6 @@ public class TodoService {
     public List<TodoItem> findItems(){
         org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User connectedUser = userRepository.findUserByEmail(springUser.getUsername());
-        return connectedUser.getTodoItems();
+        return connectedUser.getTodolist();
     }
 }

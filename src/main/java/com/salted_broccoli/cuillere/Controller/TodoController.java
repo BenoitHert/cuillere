@@ -1,12 +1,11 @@
 package com.salted_broccoli.cuillere.Controller;
 
-import com.salted_broccoli.cuillere.Model.TodoItem;
+import com.salted_broccoli.cuillere.Model.Todolist.TodoItem;
 import com.salted_broccoli.cuillere.Model.User;
 import com.salted_broccoli.cuillere.Repository.TodoRepository;
 import com.salted_broccoli.cuillere.Service.TodoService;
 import com.salted_broccoli.cuillere.Service.UserService;
 import com.salted_broccoli.cuillere.Service.form.ItemForm;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

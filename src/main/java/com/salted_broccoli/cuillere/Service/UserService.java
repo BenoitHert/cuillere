@@ -1,5 +1,6 @@
 package com.salted_broccoli.cuillere.Service;
 
+import com.salted_broccoli.cuillere.Model.Calendar.Calendar;
 import com.salted_broccoli.cuillere.Model.User;
 import com.salted_broccoli.cuillere.Repository.UserRepository;
 import com.salted_broccoli.cuillere.Service.form.RegistrationForm;
@@ -29,6 +30,8 @@ public class UserService {
                 user.setLastName(form.getLastName());
                 user.setEmail(form.getEmail());
                 user.setPassword(passwordEncoder.encode(form.getPassword()));
+                Calendar calendar = new Calendar();
+                user.setCalendar(calendar);
                 return userRepository.save(user);
 //            }
 //            else {throw new ArithmeticException("Cette adresse mail est déjà utilisée");}

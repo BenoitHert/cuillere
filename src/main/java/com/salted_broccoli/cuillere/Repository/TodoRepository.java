@@ -1,6 +1,6 @@
 package com.salted_broccoli.cuillere.Repository;
 
-import com.salted_broccoli.cuillere.Model.TodoItem;
+import com.salted_broccoli.cuillere.Model.Todolist.TodoItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

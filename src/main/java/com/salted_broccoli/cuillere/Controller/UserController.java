@@ -37,10 +37,7 @@ public class UserController {
     }
 
 
-    @GetMapping("calendar")
-    public ModelAndView calendar(){
-        return new ModelAndView("calendar");
-    }
+
 
 //    @DeleteMapping("/{userId}")
 //    public void deleteUser(@PathVariable Long id){
