@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,6 +38,18 @@ public class CalendarController {
 
         try{calendarService.addEventToCalendar(form);}
         catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return new ModelAndView("calendar");
+        }
+        return new ModelAndView("calendar");
+    }
+
+    @PostMapping("calendar/deleteEvent/{id}")
+    public ModelAndView removeEvent(Model model, @PathVariable Long id){
+        User user = userService.findUser();
+        model.addAttribute("user", user);
+        try{calendarService.removeEventFromCalendar(id);}
+        catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
             return new ModelAndView("calendar");
         }
