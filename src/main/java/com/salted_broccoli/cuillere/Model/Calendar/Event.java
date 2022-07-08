@@ -17,5 +17,5 @@ public class Event {
     private Level level;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Type type;
-    private String duration;
+    private Integer duration;
 }

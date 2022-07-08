@@ -37,36 +37,58 @@ public class TodoController {
     public ModelAndView itemSave(ItemForm form, Model model){
         User user = userService.findUser();
         List <TodoItem> todoItems = todoService.findItems();
-        todoService.itemSave(form);
         model.addAttribute("user", user);
         model.addAttribute("todoItems", todoItems);
+        try{todoService.addToDoItem(form);}
+        catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return new ModelAndView("todo");
+        }
         return new ModelAndView("todo");
 
     }
 
-    @PutMapping("todoDone/{id}")
+    @PostMapping("todo/Done/{id}")
     public ModelAndView itemDone(@PathVariable Long id, Model model){
-        todoService.itemUpdate(id, false);
         User user = userService.findUser();
         List <TodoItem> todoItems = todoService.findItems();
         model.addAttribute("user", user);
         model.addAttribute("todoItems", todoItems);
+        try{todoService.itemUpdate(id, false);}
+        catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return new ModelAndView("todo");
+        }
         return new ModelAndView("todo");
     }
 
-    @PutMapping("todoNotDone/{id}")
+    @PostMapping("todo/NotDone/{id}")
     public ModelAndView itemNotDone(@PathVariable Long id, Model model){
-        todoService.itemUpdate(id, false);
         User user = userService.findUser();
         List <TodoItem> todoItems = todoService.findItems();
         model.addAttribute("user", user);
         model.addAttribute("todoItems", todoItems);
+        try{todoService.itemUpdate(id, false);}
+        catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return new ModelAndView("todo");
+        }
         return new ModelAndView("todo");
     }
 
-    @DeleteMapping(value = "todo/{id}")
-    public void delete(@PathVariable Long id){
-        todoRepository.deleteById(id);
+    @PostMapping("todo/delete/{id}")
+    public ModelAndView deleteItem(@PathVariable Long id, Model model){
+        User user = userService.findUser();
+        List <TodoItem> todoItems = todoService.findItems();
+        model.addAttribute("user", user);
+        model.addAttribute("todoItems", todoItems);
+        try{todoService.deleteItem(id);}
+        catch (Exception e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return new ModelAndView("todo");
+
+        }
+        return new ModelAndView("todo");
     }
 
 }

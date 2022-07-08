@@ -11,6 +11,7 @@ import com.salted_broccoli.cuillere.Repository.MealRepository;
 import com.salted_broccoli.cuillere.Repository.RecipeRepository;
 import com.salted_broccoli.cuillere.Repository.UserRepository;
 import com.salted_broccoli.cuillere.Service.form.IngredientForm;
+import com.salted_broccoli.cuillere.Service.form.MealForm;
 import com.salted_broccoli.cuillere.Service.form.RecipeForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,6 +49,11 @@ public class MenuService {
         return ingredientRepository.save(ingredient);
     }
 
+    public void deleteIngredient(Long id){
+        Ingredient ingredient = ingredientRepository.findIngredientById(id);
+        ingredientRepository.delete(ingredient);
+    }
+
     public void addIngredientToRecipe(Recipe recipe, Ingredient ingredient){
         recipe.getIngredients().add(ingredient);
     }
@@ -68,8 +74,11 @@ public class MenuService {
     }
 
     public void deleteRecipe(Long id){
+        User user = findUser();
         Recipe recipe = recipeRepository.findRecipeByid(id);
         recipeRepository.delete(recipe);
+//        TODO delete recipes from user ?
+
 
     }
 
@@ -96,10 +105,27 @@ public class MenuService {
         User user = findUser();
         user.getMeals().add(meal);
         return userRepository.save(user);
+
     }
 
-    public User deleteMeal(Meal meal){
+    public Meal createMeal(MealForm form){
+        Meal meal = new Meal();
+        meal.setAppetizer(form.getAppetizer());
+        meal.setMaindish(form.getMaindish());
+        meal.setDesert(form.getDesert());
+        return mealRepository.save(meal);
+    }
+
+    public User deleteMeal(Long id){
         User user = findUser();
+        Meal meal = mealRepository.findMealById(id);
+        user.getMeals().remove(meal);
+        mealRepository.delete(meal);
+        return userRepository.save(user);
+    }
+    public User removeMealFromList(Long id){
+        User user = findUser();
+        Meal meal = mealRepository.findMealById(id);
         user.getMeals().remove(meal);
         return userRepository.save(user);
     }

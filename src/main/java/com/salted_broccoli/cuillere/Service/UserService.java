@@ -19,11 +19,13 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+//    TODO couverture test
+
     public User registration(RegistrationForm form){
 
         if(form.getPassword().equals(form.getConfirmPassword())) {
 
-//            if(userRepository.findUserByEmail(form.getEmail()).equals(null)){
+            if(userRepository.findUserByEmail(form.getEmail()) == null){
 
                 User user = new User();
                 user.setFirstName(form.getFirstName());
@@ -33,8 +35,8 @@ public class UserService {
                 Calendar calendar = new Calendar();
                 user.setCalendar(calendar);
                 return userRepository.save(user);
-//            }
-//            else {throw new ArithmeticException("Cette adresse mail est déjà utilisée");}
+            }
+            else {throw new ArithmeticException("Cette adresse mail est déjà utilisée");}
         }
             else{throw new ArithmeticException("Veuillez confirmer le même mot de passe");}
         }

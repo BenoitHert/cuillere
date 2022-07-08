@@ -12,5 +12,5 @@ public class EventForm {
     private String title;
     private Level level;
     private Type type;
-    private String duration;
+    private Integer duration;
 }

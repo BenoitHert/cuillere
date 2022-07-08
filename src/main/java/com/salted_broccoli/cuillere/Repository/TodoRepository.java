@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface TodoRepository extends JpaRepository <TodoItem, Long> {
     List<TodoItem> findItemsByUserId(Long id);
-//    TodoItem findById(Long id);
+    TodoItem findItemById(Long id);
+
 }

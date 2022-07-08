@@ -5,6 +5,7 @@ import com.salted_broccoli.cuillere.Model.User;
 import com.salted_broccoli.cuillere.Repository.TodoRepository;
 import com.salted_broccoli.cuillere.Repository.UserRepository;
 import com.salted_broccoli.cuillere.Service.form.ItemForm;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,13 @@ public class TodoService {
     @Autowired
     private UserRepository userRepository;
 
+//    TODO couverture test
+
     public User findUser() {
         return userRepository.findUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
-    public TodoItem itemSave(ItemForm form){
+    public TodoItem addToDoItem(ItemForm form){
         User user = findUser();
         TodoItem todoItem = new TodoItem();
         todoItem.setTitle(form.getTitle());
@@ -42,5 +45,10 @@ public class TodoService {
         org.springframework.security.core.userdetails.User springUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User connectedUser = userRepository.findUserByEmail(springUser.getUsername());
         return connectedUser.getTodolist();
+    }
+
+    public void deleteItem(Long id){
+        TodoItem item = todoRepository.findItemById(id);
+        todoRepository.delete(item);
     }
 }
